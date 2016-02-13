@@ -13,13 +13,21 @@ package forestry.apiculture.genetics;
 import java.util.List;
 import java.util.Random;
 
+import java.util.UUID;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
-import net.minecraft.world.World;
+import net.minecraft.world.*;
+
+import net.minecraft.init.Items;
+
+import net.minecraftforge.common.util.FakePlayerFactory;
+import com.mojang.authlib.GameProfile;
+import net.minecraftforge.common.util.FakePlayer;
 
 import forestry.api.apiculture.IBeeGenome;
 import forestry.api.apiculture.IBeeHousing;
@@ -33,6 +41,7 @@ import forestry.core.vect.Vect;
 public class AlleleEffectRadioactive extends AlleleEffectThrottled {
 
 	public static final DamageSource damageSourceBeeRadioactive = new DamageSourceForestry("bee.radioactive");
+        public static FakePlayer fp = null;
 
 	public AlleleEffectRadioactive() {
 		super("radioactive", true, 40, false, true);
@@ -42,7 +51,11 @@ public class AlleleEffectRadioactive extends AlleleEffectThrottled {
 	public IEffectData doEffect(IBeeGenome genome, IEffectData storedData, IBeeHousing housing) {
 
 		World world = housing.getWorld();
-
+		if((fp == null || !fp.worldObj.equals(world)) && world instanceof WorldServer)
+		{
+			WorldServer ws = (WorldServer)world;
+			fp = FakePlayerFactory.get(ws, new GameProfile(UUID.nameUUIDFromBytes("[Forestry]".getBytes()), "[Forestry]"));
+		}
 		if (isHalted(storedData, housing)) {
 			return storedData;
 		}
@@ -125,7 +138,8 @@ public class AlleleEffectRadioactive extends AlleleEffectThrottled {
 				continue;
 			}
 
-			world.setBlockToAir(posBlock.x, posBlock.y, posBlock.z);
+			if (fp.canPlayerEdit(posBlock.x, posBlock.y, posBlock.z, 0, null))
+				world.setBlockToAir(posBlock.x, posBlock.y, posBlock.z);
 			break;
 		}
 
