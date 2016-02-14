@@ -345,6 +345,6 @@ def loadProperties() {
 }
 
 def getBuildNumber() {
-	return "$System.env.BUILD_NUMBER" != "null" ? "$System.env.BUILD_NUMBER" : "0"
+	return "$System.env.BUILD_NUMBER" != "null" ? "$System.env.BUILD_NUMBER" : "2"
 }
 
