@@ -112,7 +112,7 @@ public final class FlowerRegistry implements IFlowerRegistry {
 
 		Block block = world.getBlock(x, y, z);
 
-		if (block.isAir(world, x, y, z) || block.equals(Blocks.bedrock) || block.equals(Blocks.dirt) || block.equals(Blocks.grass)) {
+		if (block.isAir(world, x, y, z) || block.equals(Blocks.bedrock) || block.equals(Blocks.dirt) || block.equals(Blocks.grass) || block.equals(Blocks.stone) || block.equals(Blocks.sand)) {
 			return false;
 		}
 

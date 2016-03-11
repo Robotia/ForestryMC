@@ -179,7 +179,7 @@ public class BeekeepingLogic implements IBeekeepingLogic {
 
 			// check more often if we haven't found flowers
 			if (!hasFlowersCached) {
-				hasFlowersCooldown /= 2;
+				hasFlowersCooldown-=5;
 			}
 		} else {
 			hasFlowersCooldown--;
