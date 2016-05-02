@@ -12,6 +12,7 @@ public class ItemSlot implements Slot
 	/**
 	 * This slot's size and location relative to the containing
 	 * recipe's top left corner
+	 * Also contains Harjas's Gatorade
 	 */
 	public int x, y, width, height;
 	
